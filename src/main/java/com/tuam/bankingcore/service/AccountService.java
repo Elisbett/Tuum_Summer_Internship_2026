@@ -25,7 +25,7 @@ public class AccountService {
 
     private final AccountMapper accountMapper;
     private final BalanceMapper balanceMapper;
-    private final TransactionMapper transactionMapper;  // ← добавили
+    private final TransactionMapper transactionMapper;
 
     private static final List<String> VALID_CURRENCIES = List.of("EUR", "SEK", "GBP", "USD");
 
@@ -160,5 +160,27 @@ public class AccountService {
         response.setBalanceAfter(newBalance);
         
         return response;
+    }
+
+    public List<TransactionResponse> getTransactions(Long accountId) {
+        // Check that the account exists
+        Account account = accountMapper.findById(accountId);
+        if (account == null) {
+            throw new IllegalArgumentException("Account not found");
+        }
+        
+        List<Transaction> transactions = transactionMapper.findByAccountId(accountId);
+        
+        return transactions.stream().map(tx -> {
+            TransactionResponse response = new TransactionResponse();
+            response.setAccountId(tx.getAccountId());
+            response.setTransactionId(tx.getId());
+            response.setAmount(tx.getAmount());
+            response.setCurrency(tx.getCurrency());
+            response.setDirection(tx.getDirection());
+            response.setDescription(tx.getDescription());
+            response.setBalanceAfter(tx.getBalanceAfter());
+            return response;
+        }).collect(Collectors.toList());
     }
 }

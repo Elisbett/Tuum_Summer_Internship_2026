@@ -7,6 +7,9 @@ import com.tuam.bankingcore.dto.TransactionResponse;
 import com.tuam.bankingcore.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,5 +47,11 @@ public class AccountController {
             }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
         }
+    }
+
+    @GetMapping("/{id}/transactions")
+    public ResponseEntity<List<TransactionResponse>> getTransactions(@PathVariable Long id) {
+        List<TransactionResponse> transactions = accountService.getTransactions(id);
+        return ResponseEntity.ok(transactions);
     }
 }
