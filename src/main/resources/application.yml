@@ -8,6 +8,11 @@ spring:
     password: banking_password
     driver-class-name: org.postgresql.Driver
 
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.tuam.bankingcore.model
