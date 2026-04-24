@@ -26,6 +26,7 @@ public class AccountService {
     private final AccountMapper accountMapper;
     private final BalanceMapper balanceMapper;
     private final TransactionMapper transactionMapper;
+    private final EventPublisherService eventPublisherService;
 
     private static final List<String> VALID_CURRENCIES = List.of("EUR", "SEK", "GBP", "USD");
 
@@ -64,6 +65,8 @@ public class AccountService {
             .collect(Collectors.toList());
         response.setBalances(balances);
         
+        eventPublisherService.publishAccountCreated(account.getId(), account.getCustomerId(), account.getCountry());
+
         return response;
     }
 
@@ -158,6 +161,8 @@ public class AccountService {
         response.setDirection(request.getDirection());
         response.setDescription(request.getDescription());
         response.setBalanceAfter(newBalance);
+        
+        eventPublisherService.publishBalanceUpdated(accountId, request.getCurrency(), newBalance, transaction.getId());
         
         return response;
     }
