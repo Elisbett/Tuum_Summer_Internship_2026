@@ -12,14 +12,14 @@ public interface BalanceMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int insert(Balance balance);
 
-    @Select("SELECT id, account_id as accountId, currency, amount, updated_at as updatedAt FROM balance WHERE account_id = #{accountId}")
-    @Results(id = "balanceResultMap", value = {
+    @Select("SELECT id, account_id, currency, amount, updated_at FROM balance WHERE account_id = #{accountId}")    
+    /*@Results(id = "balanceResultMap", value = {
         @Result(property = "id", column = "id"),
         @Result(property = "accountId", column = "account_id"),
         @Result(property = "currency", column = "currency"),
         @Result(property = "amount", column = "amount"),
         @Result(property = "updatedAt", column = "updated_at")
-    })
+    })*/
     List<Balance> findByAccountId(@Param("accountId") Long accountId);
 
     @Select("SELECT id, account_id as accountId, currency, amount, updated_at as updatedAt FROM balance WHERE account_id = #{accountId} AND currency = #{currency} FOR UPDATE")

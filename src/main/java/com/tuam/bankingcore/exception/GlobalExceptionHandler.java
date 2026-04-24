@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleInvalidCurrency(IllegalArgumentException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e) {
+        String message = e.getMessage();
+        if (message != null && message.equals("Account not found")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
     }
 }

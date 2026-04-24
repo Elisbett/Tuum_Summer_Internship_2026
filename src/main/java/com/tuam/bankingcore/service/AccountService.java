@@ -65,4 +65,29 @@ public class AccountService {
         
         return response;
     }
+
+    public AccountResponse getAccount(Long accountId) {
+        Account account = accountMapper.findById(accountId);
+        if (account == null) {
+            throw new IllegalArgumentException("Account not found");
+        }
+        
+        List<Balance> balances = balanceMapper.findByAccountId(accountId);
+        
+        AccountResponse response = new AccountResponse();
+        response.setAccountId(account.getId());
+        response.setCustomerId(account.getCustomerId());
+        
+        List<BalanceResponse> balanceResponses = balances.stream()
+            .map(balance -> {
+                BalanceResponse br = new BalanceResponse();
+                br.setCurrency(balance.getCurrency());
+                br.setAvailableAmount(balance.getAmount());
+                return br;
+            })
+            .collect(Collectors.toList());
+        response.setBalances(balanceResponses);
+        
+        return response;
+    }
 }

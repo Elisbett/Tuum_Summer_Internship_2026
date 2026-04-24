@@ -25,4 +25,10 @@ public class AccountController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AccountResponse> getAccount(@PathVariable Long id) {
+        AccountResponse response = accountService.getAccount(id);
+        return ResponseEntity.ok(response);
+    }
 }

@@ -11,11 +11,11 @@ public interface AccountMapper {
     int insert(Account account);
 
     @Select("SELECT id, customer_id as customerId, country, created_at as createdAt FROM account WHERE id = #{id}")
-    @Results(id = "accountResultMap", value = {
+    /*@Results(id = "accountResultMap", value = {
         @Result(property = "id", column = "id"),
         @Result(property = "customerId", column = "customer_id"),
         @Result(property = "country", column = "country"),
         @Result(property = "createdAt", column = "created_at")
-    })
+    })*/
     Account findById(@Param("id") Long id);
 }
