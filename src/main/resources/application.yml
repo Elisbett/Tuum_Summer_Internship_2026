@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: banking-core
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5433/banking_db
+    username: banking_user
+    password: banking_password
+    driver-class-name: org.postgresql.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.tuam.bankingcore.model
+  configuration:
+    map-underscore-to-camel-case: true
+
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.tuam.bankingcore: DEBUG
