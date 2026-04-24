@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:15-alpine:///banking_db
+    username: test
+    password: test
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.tuam.bankingcore.model
+  configuration:
+    map-underscore-to-camel-case: true
