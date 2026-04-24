@@ -1,13 +1,11 @@
-package com.tuam.banking_core;
+package com.tuam.bankingcore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class BankingCoreApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(BankingCoreApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(BankingCoreApplication.class, args);
+    }
 }
